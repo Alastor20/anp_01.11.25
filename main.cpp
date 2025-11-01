@@ -47,7 +47,7 @@ void rm(int **mtx, int r)
 int **make_mtx(int r, int c)
 {
     int **mtx = new int *[r];
-    for (size_t i = 0; i < c; ++i)
+    for (size_t i = 0; i < r; ++i)
     {
         try
         {
