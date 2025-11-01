@@ -3,7 +3,7 @@
 int **make_mtx(int r, int c);
 
 void output(const int *const *mtx);
-void rm(int **mtx);
+void rm(int **mtx, int r);
 
 int main()
 {
@@ -17,5 +17,14 @@ int main()
     int **mtx = nullptr;
     mtx = make_mtx(rows, cols);
     output(mtx);
-    rm(mtx);
+    rm(mtx, rows);
+}
+
+void rm(int **mtx, int r)
+{
+    for (size_t i = 0; i < r; ++i)
+    {
+        delete[] mtx[i];
+    }
+    delete[] mtx;
 }
