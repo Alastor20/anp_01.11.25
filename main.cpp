@@ -1,9 +1,9 @@
 #include <iostream>
 #include <cstddef>
 
-int **make_mtx(int r, int c);
-void output(const int *const *mtx, int r, int c);
-void rm(int **mtx, int r);
+int **make_mtx(size_t r, size_t *c);
+void output(const int *const *mtx, size_t r, size_t *c);
+void rm(int **mtx, size_t r);
 int **convert(const int *t, size_t n, const size_t *lns, size_t rows);
 
 int main()
