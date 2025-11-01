@@ -1,7 +1,7 @@
 #include <iostream>
+#include <cstddef>
 
 int **make_mtx(int r, int c);
-void input(int **mtx, int r, int c);
 void output(const int *const *mtx, int r, int c);
 void rm(int **mtx, int r);
 int **convert(const int *t, size_t n, const size_t *lns, size_t rows);
@@ -25,7 +25,7 @@ int main()
         std::cerr << "ERROR: alloc\n";
         return 2;
     }
-    input(mtx, rows, cols);
+
     if (std::cin.fail())
     {
         std::cerr << "ERROR: cant read\n";
@@ -36,7 +36,7 @@ int main()
     rm(mtx, rows);
 }
 
-void rm(int **mtx, int r)
+void rm(int **mtx, size_t r)
 {
     for (size_t i = 0; i < r; ++i)
     {
@@ -45,7 +45,7 @@ void rm(int **mtx, int r)
     delete[] mtx;
 }
 
-int **make_mtx(int r, const size_t *c)
+int **make_mtx(size_t r, const size_t *c)
 {
     int **mtx = new int *[r];
     for (size_t i = 0; i < r; ++i)
@@ -63,22 +63,11 @@ int **make_mtx(int r, const size_t *c)
     return mtx;
 }
 
-void input(int **mtx, int r, int c)
+void output(const int *const *mtx, size_t r, size_t *c)
 {
     for (size_t i = 0; i < r; ++i)
     {
-        for (size_t j = 0; j < c; ++j)
-        {
-            std::cin >> mtx[i][j];
-        }
-    }
-}
-
-void output(const int *const *mtx, int r, int c)
-{
-    for (size_t i = 0; i < r; ++i)
-    {
-        for (size_t j = 0; j < c; ++j)
+        for (size_t j = 0; j < c[i]; ++j)
         {
             std::cout << mtx[i][j] << ' ';
         }
