@@ -88,6 +88,15 @@ void output(const int *const *mtx, int r, int c)
 
 int **convert(const int *t, size_t n, const size_t *lns, size_t rows)
 {
+    size_t k = 0;
     int **mas = nullptr;
     mas = make_mtx(rows, lns);
+    for (size_t i = 0; i < rows; ++i)
+    {
+        for (size_t j = 0; j < lns[i]; ++j)
+        {
+            mas[i][j] = t[k++];
+        }
+    }
+    return mas;
 }
