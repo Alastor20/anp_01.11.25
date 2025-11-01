@@ -4,6 +4,7 @@ int **make_mtx(int r, int c);
 void input(int **mtx, int r, int c);
 void output(const int *const *mtx, int r, int c);
 void rm(int **mtx, int r);
+int **convert(const int *t, size_t n, const size_t *lns, size_t rows);
 
 int main()
 {
@@ -44,14 +45,14 @@ void rm(int **mtx, int r)
     delete[] mtx;
 }
 
-int **make_mtx(int r, int c)
+int **make_mtx(int r, const size_t *c)
 {
     int **mtx = new int *[r];
     for (size_t i = 0; i < r; ++i)
     {
         try
         {
-            mtx[i] = new int[c];
+            mtx[i] = new int[c[i]];
         }
         catch (const std::bad_alloc &e)
         {
@@ -83,4 +84,10 @@ void output(const int *const *mtx, int r, int c)
         }
         std::cout << '\n';
     }
+}
+
+int **convert(const int *t, size_t n, const size_t *lns, size_t rows)
+{
+    int **mas = nullptr;
+    mas = make_mtx(rows, lns);
 }
