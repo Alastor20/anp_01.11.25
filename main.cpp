@@ -8,32 +8,69 @@ int **convert(const int *t, size_t n, const size_t *lns, size_t rows);
 
 int main()
 {
-    long long rows = 0, cols = 0;
-    std::cin >> rows >> cols;
-    if (std::cin.fail())
-    {
-        std::cerr << "ERROR: cant read\n";
-        return 1;
-    }
-    int **mtx = nullptr;
+    size_t rows = 0;
+    std::cin >> rows;
+    size_t *lns = nullptr;
     try
     {
-        mtx = make_mtx(rows, cols);
+        lns = new size_t[rows];
     }
     catch (const std::bad_alloc &e)
     {
         std::cerr << "ERROR: alloc\n";
         return 2;
     }
-
+    for (size_t i = 0; i < rows; ++i)
+    {
+        std::cin >> lns[i];
+    }
     if (std::cin.fail())
     {
         std::cerr << "ERROR: cant read\n";
-        rm(mtx, rows);
+        delete[] lns;
         return 1;
     }
-    output(mtx, rows, cols);
-    rm(mtx, rows);
+    size_t n = 0;
+    int *t = nullptr;
+    std::cin >> n;
+    try
+    {
+        t = new int[n];
+    }
+    catch (const std::bad_alloc &e)
+    {
+        std::cerr << "ERROR: alloc\n";
+        delete[] lns;
+        return 2;
+    }
+    for (size_t i = 0; i < n; ++i)
+    {
+        std::cin >> t[i];
+    }
+    if (std::cin.fail())
+    {
+        std::cerr << "ERROR: cant read\n";
+        delete[] lns;
+        delete[] t;
+        return 1;
+    }
+    int **res = nullptr;
+    try
+    {
+        res = convert(t, n, lns, rows);
+    }
+    catch (const std::bad_alloc &e)
+    {
+        std::cerr << "ERROR: alloc\n";
+        delete[] lns;
+        delete[] t;
+        return 2;
+    }
+
+    output(res, rows, lns);
+    rm(res, rows);
+    delete[] lns;
+    delete[] t;
 }
 
 void rm(int **mtx, size_t r)
